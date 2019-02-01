@@ -280,11 +280,16 @@ void mouseDragged(){
 }
 
 void keyPressed(){
-  option++;
-  if (option == 1){
-    keyPressedTime = millis();
-  } else if (option > 3){
-    option = 0;
+  
+  if (key == 's') {
+    saveFrame("whaleFall-######.jpg");
+  } else {
+    option++;
+    if (option == 1){
+      keyPressedTime = millis();
+    } else if (option > 3){
+      option = 0;
+    }
   }
 }
 
