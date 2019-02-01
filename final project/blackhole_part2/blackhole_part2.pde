@@ -39,7 +39,7 @@ ArrayList<Star> baseStars = new ArrayList<Star>(2);// this is the array that sto
 
 //float noiseR = 10.0;//noise input for generate cloud based on the line between two stars
 int portion;
-
+int keyS = 0;
 
 void setup() {
   size(800, 800);
@@ -90,7 +90,7 @@ void draw() {
            fill(238, 255, 164);
            ellipse(oneDragCloud.get(i).position.x, oneDragCloud.get(i).position.y, 9, 9);
            die.rewind();
-           die.setGain(200);
+           die.setGain(1000);
            die.play();
            oneDragCloud.remove(i);
           }
@@ -303,7 +303,7 @@ void mouseDragged() {
     float deltaY = mouseY - pmouseY;
     currentSpeed = sqrt(sq(deltaX) + sq(deltaY));
     println(currentSpeed);
-    oddity.setGain(map(currentSpeed, 0, 15, -20, 60));
+    oddity.setGain(map(currentSpeed, 0, 15, 0, 60));
     //this is important in order to keep the mousedragg not so sensitive
     if (deltaX != 0 || deltaY != 0){
       //implement base Star 
@@ -344,14 +344,23 @@ void mouseReleased() {
 }
 
 void keyPressed(){
+  if (key == 's'){
+    saveFrame("blackHole-######.jpg");
+    keyS = 1;
+  }
   space.setGain(100);
   space.play();
 }
 void keyReleased(){
-  space.pause();
-  startTime = -1;
-  baseStars.clear();
-  forceBoolean = false;
-  forceSpeed.set(0.0, 0.0);
-  oneDragCloud.clear();
+  if (keyS == 0) {
+    space.pause();
+    startTime = -1;
+    baseStars.clear();
+    forceBoolean = false;
+    forceSpeed.set(0.0, 0.0);
+    oneDragCloud.clear();
+  } else if (keyS == 1){
+    keyS = 0;
+  }
+  
 }
